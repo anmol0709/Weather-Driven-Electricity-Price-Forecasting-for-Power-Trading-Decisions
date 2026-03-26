@@ -1,0 +1,25 @@
+[client]
+showErrorDetails = false
+showWarningOnDirectExecution = false
+toolbarMode = "minimal"
+
+[server]
+port = 8501
+headless = true
+runOnSave = true
+enableXsrfProtection = true
+enableCORS = false
+
+[theme]
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[logger]
+level = "warning"
+
+[client.showErrorDetails]
+# Don't show Python stack trace in production
+showErrorDetails = false
