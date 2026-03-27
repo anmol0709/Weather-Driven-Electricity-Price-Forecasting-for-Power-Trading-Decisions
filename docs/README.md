@@ -15,32 +15,38 @@ Model inference uses a pre-trained LightGBM model and standard scaler; data prep
 ```
 Weather-Driven-Electricity-Price-Forecasting-for-Power-Trading-Decisions/
 │
-├── Application
-│   ├── app.py                          Main Streamlit web interface
-│   ├── requirements.txt                Python dependencies
-│   └── .streamlit/config.toml          Streamlit configuration
+├── src/                               Source code
+│   └── app.py                         Main Streamlit web interface
 │
-├── Deployment
-│   ├── Dockerfile                      Docker container image
-│   └── docker-compose.yml              Docker Compose configuration
+├── models/                            Pre-trained ML models
+│   ├── lgbm_model.joblib              Trained LightGBM model (required)
+│   └── scaler.joblib                  Feature scaler (required)
 │
-├── Documentation
-│   ├── README.md                       This file
-│   ├── QUICK_REFERENCE.md              Quick reference guide
-│   ├── GETTING_STARTED.md              Setup instructions
-│   ├── Frontend_Interface_README.md    Complete feature documentation
-│   ├── DEPLOYMENT_GUIDE.md             Production deployment guide
-│   └── ARCHITECTURE.md                 System architecture
+├── data/                              Data files
+│   ├── examples/
+│   │   └── example_batch_data.csv     Sample batch prediction data
+│   └── training/                      Training datasets
 │
-├── Data & Models
-│   ├── lgbm_model.joblib               Trained LightGBM model (required)
-│   ├── scaler.joblib                   Feature scaler (required)
-│   ├── example_batch_data.csv          Sample batch prediction data
-│   └── merged_data.csv                 Training dataset
+├── notebooks/                         Jupyter notebooks
+│   └── ElectrcityPriceForecast.ipynb  Original analysis notebook
 │
-└── Source
-    ├── Python file_FP1_Group_08.ipynb  Original Jupyter notebook
-    └── README.md                       Original project documentation
+├── deployment/                        Deployment configuration
+│   ├── Dockerfile                     Docker container image
+│   ├── docker-compose.yml             Docker Compose configuration
+│   └── .streamlit/                    Streamlit configuration
+│
+├── docs/                              Documentation
+│   ├── README.md                      This file
+│   ├── QUICK_REFERENCE.md             Quick reference guide
+│   ├── GETTING_STARTED.md             Setup instructions
+│   ├── ARCHITECTURE.md                System architecture
+│   ├── DEPLOYMENT_GUIDE.md            Production deployment guide
+│   ├── Frontend_Interface_README.md   Complete feature documentation
+│   └── INTERFACE_SUMMARY.md           Interface summary
+│
+├── requirements.txt                   Python dependencies
+├── run_project.sh                     Helper script for running the project
+└── .git/                              Git repository
 ```
 
 ## Quick Start
@@ -57,7 +63,7 @@ Weather-Driven-Electricity-Price-Forecasting-for-Power-Trading-Decisions/
 pip install -r requirements.txt
 
 # Run the application directly
-streamlit run app.py
+streamlit run src/app.py
 ```
 
 Or use the helper script:
@@ -66,9 +72,9 @@ Or use the helper script:
 # make executable first if needed
 chmod +x run_project.sh
 
-./run_project.sh check
-./run_project.sh install
-./run_project.sh start
+./run_project.sh check      # Verify required files
+./run_project.sh install    # Set up virtual environment
+./run_project.sh start      # Launch the app
 ```
 
 The application will open at `http://localhost:8501`

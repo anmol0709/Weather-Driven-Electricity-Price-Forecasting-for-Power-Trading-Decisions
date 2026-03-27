@@ -31,7 +31,13 @@ EOF
 function command_check() {
   echo "Checking required files..."
   local missing=0
-  for f in "app.py" "requirements.txt" "lgbm_model.joblib" "scaler.joblib"; do
+  local files_to_check=(
+    "src/app.py"
+    "requirements.txt"
+    "models/lgbm_model.joblib"
+    "models/scaler.joblib"
+  )
+  for f in "${files_to_check[@]}"; do
     if [[ ! -f "$f" ]]; then
       echo "⛔ Missing file: $f"
       missing=1
@@ -40,7 +46,7 @@ function command_check() {
     fi
   done
   if [[ $missing -ne 0 ]]; then
-    echo "Please download or place missing files in the repository root."
+    echo "Please ensure all required files are in place."
     exit 1
   fi
   echo "All required files present."
@@ -82,7 +88,7 @@ function command_start() {
 
   echo "Starting Streamlit app..."
   echo "Open in browser: http://localhost:8501"
-  streamlit run app.py
+  streamlit run src/app.py
 }
 
 function command_docker() {

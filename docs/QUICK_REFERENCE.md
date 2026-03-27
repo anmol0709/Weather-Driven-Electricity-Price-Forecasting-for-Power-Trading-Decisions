@@ -3,7 +3,7 @@
 ## 🚀 Getting Started in 30 Seconds
 
 ```bash
-pip install -r requirements.txt && streamlit run app.py
+pip install -r requirements.txt && streamlit run src/app.py
 ```
 
 Then open: **http://localhost:8501**
@@ -142,7 +142,7 @@ pip install -r requirements.txt
 
 ### Problem: "Port already in use"
 ```bash
-streamlit run app.py --server.port 8080
+streamlit run src/app.py --server.port 8080
 ```
 
 ### Problem: Slow on large batch
@@ -159,7 +159,7 @@ streamlit run app.py --server.port 8080
 | Quick start | GETTING_STARTED.md |
 | All features | Frontend_Interface_README.md |
 | Deployment | DEPLOYMENT_GUIDE.md |
-| Example data | example_batch_data.csv |
+| Example data | data/examples/example_batch_data.csv |
 | Full info | Tab: ℹ️ Information |
 
 ---
@@ -243,10 +243,10 @@ Prediction: Next 15-min MCP in ₹/MWh
 
 ```bash
 # Local
-streamlit run app.py
+streamlit run src/app.py
 
-# Docker
-docker-compose up
+# Docker (from project root)
+docker-compose -f deployment/docker-compose.yml up --build
 
 # Cloud (after git push)
 # - Go to share.streamlit.io

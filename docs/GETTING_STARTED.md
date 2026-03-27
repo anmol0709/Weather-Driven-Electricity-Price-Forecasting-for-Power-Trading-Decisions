@@ -9,7 +9,13 @@ pip install -r requirements.txt
 
 ### Step 2: Run the Application
 ```bash
-streamlit run app.py
+streamlit run src/app.py
+```
+
+Alternatively, use the helper script:
+```bash
+chmod +x ../run_project.sh
+../run_project.sh start
 ```
 
 ### Step 3: Open in Browser
@@ -21,11 +27,11 @@ Your default browser should open automatically at `http://localhost:8501`
 
 - [ ] Python 3.8+ installed
 - [ ] Requirements installed: `pip install -r requirements.txt`
-- [ ] Files present in directory:
-  - [ ] `app.py`
-  - [ ] `lgbm_model.joblib`
-  - [ ] `scaler.joblib`
-- [ ] Run command: `streamlit run app.py`
+- [ ] Files present in directory structure:
+  - [ ] `src/app.py`
+  - [ ] `models/lgbm_model.joblib`
+  - [ ] `models/scaler.joblib`
+- [ ] Run command: `streamlit run src/app.py` or `./run_project.sh start`
 
 ---
 
@@ -46,7 +52,7 @@ Your default browser should open automatically at `http://localhost:8501`
 
 ### 2. Batch Prediction (Under 5 minutes)
 1. Go to **"📈 Batch Prediction"** tab
-2. Upload **`example_batch_data.csv`** (included in folder)
+2. Upload **`data/examples/example_batch_data.csv`** (included in the data folder)
 3. Click **"🔮 Predict Batch Prices"**
 4. View results and download CSV with predictions
 

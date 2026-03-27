@@ -5,6 +5,7 @@ import joblib
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import warnings
+import os
 warnings.filterwarnings('ignore')
 
 # Set page config
@@ -62,11 +63,16 @@ FULL_MODEL_COLUMNS = [
 @st.cache_resource
 def load_model_and_scaler():
     try:
-        model = joblib.load('lgbm_model.joblib')
-        scaler = joblib.load('scaler.joblib')
+        # Get the path to models directory relative to this script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(script_dir, '..', 'models', 'lgbm_model.joblib')
+        scaler_path = os.path.join(script_dir, '..', 'models', 'scaler.joblib')
+        
+        model = joblib.load(model_path)
+        scaler = joblib.load(scaler_path)
         return model, scaler
-    except FileNotFoundError:
-        st.error("Models not found! Please ensure lgbm_model.joblib and scaler.joblib are in the directory.")
+    except FileNotFoundError as e:
+        st.error(f"Models not found! Please ensure lgbm_model.joblib and scaler.joblib are in the models/ directory. Error: {e}")
         return None, None
 
 # Title and description

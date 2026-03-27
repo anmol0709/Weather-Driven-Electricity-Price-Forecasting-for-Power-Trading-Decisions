@@ -24,7 +24,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 4. Run application
-streamlit run app.py
+streamlit run src/app.py
 ```
 
 **Access at:** `http://localhost:8501`
@@ -32,13 +32,13 @@ streamlit run app.py
 ### With Custom Port
 
 ```bash
-streamlit run app.py --server.port 8080
+streamlit run src/app.py --server.port 8080
 ```
 
 ### Development Mode (with auto-reload)
 
 ```bash
-streamlit run app.py --logger.level=debug
+streamlit run src/app.py --logger.level=debug
 ```
 
 ---
@@ -50,14 +50,22 @@ streamlit run app.py --logger.level=debug
 **Easiest method for quick deployment:**
 
 ```bash
-# Build and start the application
-docker-compose up --build
+# From project root directory
+docker-compose -f deployment/docker-compose.yml up --build
 
 # In detached mode (background)
-docker-compose up -d --build
+docker-compose -f deployment/docker-compose.yml up -d --build
 
 # Stop the application
-docker-compose down
+docker-compose -f deployment/docker-compose.yml down
+```
+
+**Or from deployment directory:**
+
+```bash
+cd deployment
+docker-compose up --build
+cd ..
 ```
 
 **Access at:** `http://localhost:8501`
@@ -65,8 +73,8 @@ docker-compose down
 ### Docker Option 2: Manual Docker Commands
 
 ```bash
-# Build the image
-docker build -t electricity-forecaster .
+# Build the image from project root
+docker build -f deployment/Dockerfile -t electricity-forecaster .
 
 # Run the container
 docker run -p 8501:8501 \

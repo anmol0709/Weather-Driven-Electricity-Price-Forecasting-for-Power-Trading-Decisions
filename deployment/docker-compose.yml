@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   electricity-forecaster:
-    build: .
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
     container_name: electricity-price-forecaster
     ports:
       - "8501:8501"
@@ -10,7 +12,7 @@ services:
       - STREAMLIT_SERVER_HEADLESS=true
       - STREAMLIT_SERVER_ENABLECORS=false
     volumes:
-      - ./:/app
+      - ..:/app
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8501/_stcore/health')"]
@@ -19,5 +21,8 @@ services:
       retries: 3
       start_period: 40s
 
-# To run:
+# To run from deployment directory:
 # docker-compose up --build
+
+# Or from project root:
+# docker-compose -f deployment/docker-compose.yml up --build
