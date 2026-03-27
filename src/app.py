@@ -57,7 +57,7 @@ FEATURES_TO_SCALE = [
 FULL_MODEL_COLUMNS = [
     'market_volume', 'bid_surplus', 'final_schedule', 'price_lag_24h',
     'temp', 'temp_sq', 'dwpt', 'rhum', 'wspd',
-    'hour', 'day_of_week', 'month', 'day_of_year', 'week_of_year', 'quarter'
+    'hour', 'day_of_week', 'month', 'Hour', 'Month', 'day_of_year', 'week_of_year', 'quarter'
 ]
 
 @st.cache_resource
@@ -84,6 +84,8 @@ def compute_temporal_features(selected_datetime: datetime) -> dict:
         'hour': selected_datetime.hour,
         'day_of_week': selected_datetime.weekday(),
         'month': selected_datetime.month,
+        'Hour': selected_datetime.hour,
+        'Month': selected_datetime.month,
         'day_of_year': selected_datetime.timetuple().tm_yday,
         'week_of_year': selected_datetime.isocalendar()[1],
         'quarter': (selected_datetime.month - 1) // 3 + 1
@@ -343,11 +345,15 @@ with tab2:
                     # Calculate derived features and ensure all columns
                     full_cols = ['market_volume', 'bid_surplus', 'final_schedule', 'price_lag_24h',
                                'temp', 'temp_sq', 'dwpt', 'rhum', 'wspd', 'hour', 'day_of_week',
-                               'month', 'day_of_year', 'week_of_year', 'quarter']
+                               'month', 'Hour', 'Month', 'day_of_year', 'week_of_year', 'quarter']
                     
                     # Add missing columns with reasonable defaults if needed
                     if 'temp_sq' not in batch_df.columns:
                         batch_df['temp_sq'] = batch_df['temp'] ** 2
+                    if 'Hour' not in batch_df.columns and 'hour' in batch_df.columns:
+                        batch_df['Hour'] = batch_df['hour']
+                    if 'Month' not in batch_df.columns and 'month' in batch_df.columns:
+                        batch_df['Month'] = batch_df['month']
                     if 'day_of_year' not in batch_df.columns:
                         batch_df['day_of_year'] = 1  # Default
                     if 'week_of_year' not in batch_df.columns:
